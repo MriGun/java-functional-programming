@@ -221,6 +221,84 @@ employeeMap.entrySet().stream().sorted(Map.Entry.comparingByKey(Comparator.compa
 ```
 
 
+#### Map() vs Reduce()
+Map() -> Transforming data
+Reduce() -> Aggregating the data
+
+Map() -> Transform Stream<Object> to stream of int
+Reduce() -> Combine stream of int and produce the sum result
+	
+T reduce(T Identity, BinaryOperator<T> accumulator)
+Identity is initial value of Type T
+accumulator is function for combining two values
+
+Integer sumResult = Stream.of(1,2,3,4,5,6)
+	                .reduce(0, (a,b) -> a+b)
+
+Identity = 0 which is initial value
+accumulator = (a,b) -> a+b
+	
+	
+```java
+List<Integer> numbers = Arrays.asList(1,5,4,2,3);
+		
+		Integer sum = 0;
+		for (Integer num : numbers) {
+			sum = sum + num;
+		}
+		
+		System.out.println(sum);
+		
+		Integer sum1 = numbers.stream().mapToInt(i -> i).sum();
+		
+		System.out.println(sum1);
+		
+		Integer reduceSum = numbers.stream().reduce(0, (a, b) -> a+b);
+		
+		System.out.println(reduceSum);
+		
+		Optional<Integer> reduceSumMethodRef = numbers.stream().reduce(Integer::sum);
+		
+		System.out.println(reduceSumMethodRef.get());
+		
+		//max value
+		Integer maxValue =  numbers.stream()
+				.reduce(0, (a,b) -> a > b ? a : b);
+		System.out.println(maxValue);
+		
+		Integer maxValue1 =  numbers.stream().reduce(Integer::max).get();
+		System.out.println(maxValue1);
+		
+		List<String> words = Arrays.asList("mrinmoy", "depression", "valo lage na");
+		
+		
+		String longestString = words.stream()
+				.reduce((word1, word2) -> word1.length() > word2.length() ? word1 : word2)
+				.get();
+		System.out.println(longestString);
+		
+		//avg
+		double avgSalary = EmployeeDatabase.getEmployees().stream()
+		.filter(employee -> employee.getDept().equalsIgnoreCase("CIVIL"))
+		.map(employee -> employee.getSalary())
+		.mapToDouble(i->i)
+		.average().getAsDouble();
+		
+		System.out.println(avgSalary);
+		
+		//sum
+		double sumSalary = EmployeeDatabase.getEmployees().stream()
+				.filter(employee -> employee.getDept().equalsIgnoreCase("CIVIL"))
+				.map(employee -> employee.getSalary())
+				.mapToDouble(i->i)
+				.sum();
+		
+		System.out.println(sumSalary);
+			
+```
+
+	
+
 
 
 
