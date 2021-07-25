@@ -1,5 +1,18 @@
 # java-functional-programming
 
+## consumer
+-consumer can be used in all the context where an object needs to be consumed , taken as input and some operation to be performed on the object without returning any result.
+void accept T(t)
+
+## predicate
+-predicate is used to check condition
+boolean Test(T t)
+
+## supplier
+-supplier can be used in all the context where there is no input but an output is expected
+T get()
+
+
 ## Stream Api
 #### Stream api is used to process collection of objects.
 _A stream is a sequence of objects that supports various method which can be pipelined to produce desired reult_.
